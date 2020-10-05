@@ -41,6 +41,10 @@ resource "aws_iam_role_policy" "ct" {
   name   = "CloudTrailToCloudWatch"
   role   = aws_iam_role.ct[0].id
   policy = data.template_file.aws_iam_cloudtrail_to_cloudwatch_policy.rendered
+
+  depends_on = [
+    aws_cloudwatch_log_group.ct[0],
+  ]
 }
 
 resource "aws_cloudtrail" "ct" {
